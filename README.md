@@ -34,7 +34,7 @@ http://localhost:3000
 
 Berikut adalah tampilan dari aplikasi **Budget Buddy**:
 
-![Tampilan Budget Buddy](images/screenshot.png)
+![Tampilan Budget Buddy](tampilan-budget-buddy.jpeg)
 
 Struktur Folder
 
