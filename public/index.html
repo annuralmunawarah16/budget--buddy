@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Budget Buddy</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>💰 Budget Buddy</h1>
+
+  <section class="form-section">
+    <h2>Tambah Transaksi</h2>
+    <form id="transaction-form">
+      <input type="text" id="name" placeholder="Contoh: Beli Mie Ayam" required />
+      <input type="number" id="amount" placeholder="Contoh: 15000" required />
+      <select id="type">
+        <option value="income">Pemasukan</option>
+        <option value="expense" selected>Pengeluaran</option>
+      </select>
+      <select id="category">
+        <option value="Makanan">Makanan</option>
+        <option value="Transport">Transport</option>
+        <option value="Jajan">Jajan</option>
+        <option value="Lainnya" selected>Lainnya</option>
+      </select>
+      <button type="submit">+ Tambah Transaksi</button>
+    </form>
+  </section>
+
+  <section class="summary-section">
+    <h2>Ringkasan Keuangan</h2>
+    <p>🟢 Pemasukan: <strong>Rp <span id="total-income">0</span></strong></p>
+    <p>🔴 Pengeluaran: <strong>Rp <span id="total-expense">0</span></strong></p>
+    <p>💳 Saldo Saat Ini: <strong>Rp <span id="balance">0</span></strong></p>
+  </section>
+
+  <section class="history-section">
+    <h2>Riwayat Transaksi</h2>
+    <ul id="transaction-list">
+      <li>Tidak ada transaksi saat ini.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>©️ 2025 Budget Buddy — Proyek Akhir Kelas X</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
