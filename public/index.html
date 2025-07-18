@@ -1,4 +1,28 @@
+[20.53, 18/7/2025] Annur Almunawarah: html
 <!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Budget Buddy</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>💰 Budget Buddy</h1>
+
+  <section class="form-section">
+    <h2>Tambah Transaksi</h2>
+    <form id="transaction-form">
+      <input type="text" id="name" placeholder="Contoh: Beli Mie Ayam" required />
+      <input type="number" id="amount" placeholder="Contoh: 15000" required />
+      <select id="type">
+        <option value="income">Pemasukan</option>
+        <option value="expense" selected>Pengeluaran</option>
+      </select>
+      <select id="category">
+        <option value="Makanan">Makanan</option>
+        <optio…
+[20.56, 18/7/2025] Annur Almunawarah: <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
@@ -46,6 +70,7 @@
     <p>©️ 2025 Budget Buddy — Proyek Akhir Kelas X</p>
   </footer>
 
-  <script src="public/script.js"></script>
+  <!-- FIXED: tidak pakai "public/" -->
+  <script src="script.js"></script>
 </body>
 </html>
