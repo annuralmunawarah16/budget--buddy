@@ -1,84 +1,62 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('transaction-form');
-    const transactionList = document.getElementById('transaction-list');
-    const totalIncome = document.getElementById('total-income');
-    const totalExpense = document.getElementById('total-expense');
-    const balance = document.getElementById('balance');
+const incomeEl = document.getElementById('income');
+const expenseEl = document.getElementById('expense');
+const balanceEl = document.getElementById('balance');
+const form = document.getElementById('transaction-form');
+const historyList = document.getElementById('history');
 
-    // Escape teks agar aman dari XSS
-    function escapeHTML(text) {
-        return text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    }
+function formatRupiah(num) {
+  return 'Rp ' + Number(num).toLocaleString('id-ID');
+}
 
-    // Tambah transaksi
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const name = document.getElementById('name').value;
-        const amount = parseFloat(document.getElementById('amount').value);
-        const type = document.getElementById('type').value;
-        const category = document.getElementById('category').value;
-
-        const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-
-        transactions.push({ name, amount, type, category });
-        localStorage.setItem('transactions', JSON.stringify(transactions));
-
-        alert("Transaksi berhasil ditambahkan!");
-        form.reset();
-        updateUI();
+function fetchSummary() {
+  fetch('/api/summary')
+    .then(res => res.json())
+    .then(data => {
+      incomeEl.textContent = formatRupiah(data.totalIncome);
+      expenseEl.textContent = formatRupiah(data.totalExpense);
+      balanceEl.textContent = formatRupiah(data.balance);
     });
+}
 
-    // Hapus transaksi
-    function deleteTransaction(index) {
-        const konfirmasi = confirm("Yakin mau hapus transaksi ini?");
-        if (!konfirmasi) return;
-
-        const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-        transactions.splice(index, 1);
-        localStorage.setItem('transactions', JSON.stringify(transactions));
-        updateUI();
-    }
-
-    // Tampilkan data transaksi dan ringkasan
-    function updateUI() {
-        const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-
-        // Tampilkan daftar transaksi
-        transactionList.innerHTML = '';
-        if (transactions.length === 0) {
-            transactionList.innerHTML = '<li>Tidak ada transaksi saat ini.</li>';
-        } else {
-            transactions.forEach((transaction, index) => {
-                const li = document.createElement('li');
-                li.innerHTML = `
-                    ${escapeHTML(transaction.name)} (${transaction.category}) - Rp ${transaction.amount} [${transaction.type}]
-                    <button onclick="deleteTransaction(${index})">Hapus</button>
-                `;
-                transactionList.appendChild(li);
-            });
-        }
-
-        // Hitung total pemasukan dan pengeluaran
-        let income = 0;
-        let expense = 0;
-
-        transactions.forEach(t => {
-            if (t.type === 'income') {
-                income += t.amount;
-            } else {
-                expense += t.amount;
-            }
+function fetchTransactions() {
+  fetch('/api/transactions')
+    .then(res => res.json())
+    .then(data => {
+      historyList.innerHTML = '';
+      if (data.transactions.length === 0) {
+        historyList.innerHTML = '<li style="text-align:center;color:#888;">Tidak ada transaksi saat ini.</li>';
+      } else {
+        data.transactions.forEach(trx => {
+          const li = document.createElement('li');
+          li.className = trx.type;
+          li.textContent = `${trx.name} - ${formatRupiah(trx.amount)} (${trx.category})`;
+          historyList.appendChild(li);
         });
+      }
+    });
+}
 
-        totalIncome.textContent = income;
-        totalExpense.textContent = expense;
-        balance.textContent = income - expense;
-    }
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
 
-    // Agar fungsi delete bisa diakses dari HTML onclick
-    window.deleteTransaction = deleteTransaction;
+  const name = document.getElementById('name').value;
+  const amount = Number(document.getElementById('amount').value);
+  const type = document.getElementById('type').value;
+  const category = document.getElementById('category').value;
 
-    // Pertama kali jalan
-    updateUI();
+  fetch('/api/transactions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, amount, type, category })
+  })
+    .then(res => res.json())
+    .then(() => {
+      form.reset();
+      fetchSummary();
+      fetchTransactions();
+    });
 });
+
+// Load data awal saat halaman dibuka
+fetchSummary();
+fetchTransactions();

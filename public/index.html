@@ -1,76 +1,60 @@
-[20.53, 18/7/2025] Annur Almunawarah: html
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Budget Buddy</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>💰 Budget Buddy</h1>
+  <div class="container">
+    <header>
+      <h1>Budget Buddy</h1>
+      <p>Mengelola keuanganmu dengan bijak</p>
+    </header>
 
-  <section class="form-section">
-    <h2>Tambah Transaksi</h2>
-    <form id="transaction-form">
-      <input type="text" id="name" placeholder="Contoh: Beli Mie Ayam" required />
-      <input type="number" id="amount" placeholder="Contoh: 15000" required />
-      <select id="type">
-        <option value="income">Pemasukan</option>
-        <option value="expense" selected>Pengeluaran</option>
-      </select>
-      <select id="category">
-        <option value="Makanan">Makanan</option>
-        <optio…
-[20.56, 18/7/2025] Annur Almunawarah: <!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Budget Buddy</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <h1>💰 Budget Buddy</h1>
+    <section class="summary">
+      <h2>Ringkasan Keuangan</h2>
+      <div class="summary-boxes">
+        <div class="box income-box">
+          <h3>Pemasukan</h3>
+          <p id="income">Rp 0</p>
+        </div>
+        <div class="box expense-box">
+          <h3>Pengeluaran</h3>
+          <p id="expense">Rp 0</p>
+        </div>
+        <div class="box balance-box">
+          <h3>Saldo Saat Ini</h3>
+          <p id="balance">Rp 0</p>
+        </div>
+      </div>
+    </section>
 
-  <section class="form-section">
-    <h2>Tambah Transaksi</h2>
-    <form id="transaction-form">
-      <input type="text" id="name" placeholder="Contoh: Beli Mie Ayam" required />
-      <input type="number" id="amount" placeholder="Contoh: 15000" required />
-      <select id="type">
-        <option value="income">Pemasukan</option>
-        <option value="expense" selected>Pengeluaran</option>
-      </select>
-      <select id="category">
-        <option value="Makanan">Makanan</option>
-        <option value="Transport">Transport</option>
-        <option value="Jajan">Jajan</option>
-        <option value="Lainnya" selected>Lainnya</option>
-      </select>
-      <button type="submit">+ Tambah Transaksi</button>
-    </form>
-  </section>
+    <section class="form-section">
+      <h2>Tambah Transaksi</h2>
+      <form id="transaction-form">
+        <input type="text" id="name" placeholder="Contoh: Beli Mie Ayam" required />
+        <input type="number" id="amount" placeholder="Contoh: 15000" required />
+        <select id="type" required>
+          <option value="income">Pemasukan</option>
+          <option value="expense">Pengeluaran</option>
+        </select>
+        <input type="text" id="category" placeholder="Contoh: Lainnya" required />
+        <button type="submit">+ Tambah Transaksi</button>
+      </form>
+    </section>
 
-  <section class="summary-section">
-    <h2>Ringkasan Keuangan</h2>
-    <p>🟢 Pemasukan: <strong>Rp <span id="total-income">0</span></strong></p>
-    <p>🔴 Pengeluaran: <strong>Rp <span id="total-expense">0</span></strong></p>
-    <p>💳 Saldo Saat Ini: <strong>Rp <span id="balance">0</span></strong></p>
-  </section>
+    <section class="history">
+      <h2>Riwayat Transaksi</h2>
+      <ul id="history"></ul>
+    </section>
 
-  <section class="history-section">
-    <h2>Riwayat Transaksi</h2>
-    <ul id="transaction-list">
-      <li>Tidak ada transaksi saat ini.</li>
-    </ul>
-  </section>
+    <footer>
+      <p>© 2025 Budget Buddy. Dibuat oleh Annur 🌱</p>
+    </footer>
+  </div>
 
-  <footer>
-    <p>©️ 2025 Budget Buddy — Proyek Akhir Kelas X</p>
-  </footer>
-
-  <!-- FIXED: tidak pakai "public/" -->
   <script src="script.js"></script>
 </body>
 </html>
